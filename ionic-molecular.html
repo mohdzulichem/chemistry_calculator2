@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ionic or Molecular? + Names | MZJ Chemistry Helper</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #4b2e83; /* UiTM-ish purple */
+      color: white;
+      padding: 1rem 1.5rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+
+    header p {
+      margin: 0.2rem 0 0;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 1.5rem auto;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .input-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      min-width: 180px;
+      padding: 0.5rem 0.7rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 0.55rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      background: #4b2e83;
+      color: white;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .result-wrapper {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 800px) {
+      .result-wrapper {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .result-card, .info-card {
+      padding: 1rem;
+      border-radius: 10px;
+      border-left: 6px solid #4b2e83;
+      background: #f0ecff;
+    }
+
+    .info-card {
+      border-left-color: #2c3e50;
+      background: #f7f7ff;
+    }
+
+    .result-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+    }
+
+    .result-type {
+      font-weight: bold;
+      text-transform: uppercase;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-left: 0.25rem;
+    }
+
+    .type-ionic {
+      color: #c0392b;
+      background: #fdecea;
+    }
+
+    .type-molecular {
+      color: #16a085;
+      background: #e7f8f4;
+    }
+
+    .name-pill {
+      display: inline-block;
+      margin-top: 0.3rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid #ddd;
+      font-size: 0.85rem;
+    }
+
+    .rules {
+      margin-top: 1.5rem;
+    }
+
+    .rules h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .rules ul {
+      margin-top: 0.2rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 0.5rem;
+      text-align: left;
+    }
+
+    th {
+      background: #f3f3f3;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      padding: 1rem 0 1.5rem;
+      color: #777;
+    }
+
+    .examples {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .examples span {
+      display: inline-block;
+      background: #f7f7ff;
+      border-radius: 999px;
+      padding: 0.3rem 0.7rem;
+      margin: 0.1rem;
+      border: 1px solid #ddd;
+      cursor: pointer;
+    }
+
+    .examples span:hover {
+      background: #ececff;
+    }
+
+    .tag-ionic {
+      color: #c0392b;
+      font-weight: bold;
+    }
+
+    .tag-molecular {
+      color: #16a085;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Ionic or Molecular? + Compound Names</h1>
+    <p>MZJ Chemistry Helper – Identify type, name, and key properties.</p>
+  </header>
+
+  <main class="container">
+    <p>
+      Type a chemical formula (for example: <strong>NaCl</strong>, 
+      <strong>CO₂</strong>, <strong>NH₄NO₃</strong>) and this page will:
+      <strong>(1)</strong> predict whether it is <strong>ionic</strong> or
+      <strong>molecular</strong>, and <strong>(2)</strong> show the
+      <strong>name</strong> for common compounds.
+    </p>
+
+    <div class="examples">
+      Try: 
+      <span data-example="NaCl">NaCl</span>
+      <span data-example="MgCl2">MgCl₂</span>
+      <span data-example="CO2">CO₂</span>
+      <span data-example="NH4NO3">NH₄NO₃</span>
+      <span data-example="H2O">H₂O</span>
+      <span data-example="KBr">KBr</span>
+    </div>
+
+    <div class="input-section">
+      <label for="formula">Chemical formula:</label>
+      <input type="text" id="formula" placeholder="e.g. NaCl, CO2, NH4NO3" />
+      <button id="classifyBtn">Classify</button>
+    </div>
+
+    <div class="result-wrapper">
+      <div id="result" class="result-card" style="display:none;">
+        <div class="result-title">Result</div>
+        <div id="resultFormula"></div>
+        <div id="resultName"></div>
+        <div id="resultType"></div>
+        <p id="resultExplanation" style="margin-top:0.5rem;"></p>
+      </div>
+
+      <div class="info-card">
+        <div class="result-title">How this page decides</div>
+        <ul style="margin-top:0.3rem;">
+          <li>Look at the <strong>first element</strong> in the formula.</li>
+          <li>If it is a <strong>metal</strong> → usually an
+            <span class="tag-ionic">ionic compound</span>.
+          </li>
+          <li>If it is <strong>NH₄</strong> (ammonium) → treated as
+            <span class="tag-ionic">ionic</span>.
+          </li>
+          <li>If it is a <strong>non-metal</strong> → usually a
+            <span class="tag-molecular">molecular (covalent) compound</span>.
+          </li>
+        </ul>
+        <p style="font-size:0.85rem; margin-top:0.4rem;">
+          Nota ringkas (BM): Logik mudah untuk pelajar –
+          "Logam + bukan logam = ionik", "Bukan logam + bukan logam = kovalen".
+        </p>
+      </div>
+    </div>
+
+    <section class="rules">
+      <h2>Quick Rules – Ionic vs Molecular</h2>
+      <ul>
+        <li><strong>Ionic compounds</strong> are usually formed between
+          a <strong>metal</strong> and a <strong>non-metal</strong>, or when a
+          <strong>polyatomic ion</strong> is present (e.g. NH₄⁺, NO₃⁻, SO₄²⁻).
+        </li>
+        <li><strong>Molecular (covalent) compounds</strong> are usually formed
+          between <strong>non-metal + non-metal</strong>.</li>
+        <li>Look at the <strong>first element</strong> in the formula:
+          <ul>
+            <li>If it is a <strong>metal</strong> → usually
+              <strong>ionic</strong>.</li>
+            <li>If it is <strong>NH₄</strong> (ammonium) → <strong>ionic</strong>.</li>
+            <li>If it is a <strong>non-metal</strong> → usually
+              <strong>molecular</strong> (except some acids and special cases).</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2>Common Compounds – Name & Type</h2>
+      <table id="commonTable">
+        <tr>
+          <th>Formula</th>
+          <th>Name</th>
+          <th>Type</th>
+        </tr>
+        <!-- Filled by JavaScript -->
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> MZJ Chemistry Helper – Ionic vs Molecular.
+  </footer>
+
+  <script>
+    // Convert subscript numbers to normal digits for easier matching
+    function normalizeFormula(input) {
+      const subscripts = {
+        "₀": "0", "₁": "1", "₂": "2", "₃": "3", "₄": "4",
+        "₅": "5", "₆": "6", "₇": "7", "₈": "8", "₉": "9"
+      };
+      return input.trim().replace(/[₀-₉]/g, c => subscripts[c] || c);
+    }
+
+    // Simple list of metals (not complete, but good for teaching use)
+    const metals = [
+      "Li","Na","K","Rb","Cs","Fr",
+      "Be","Mg","Ca","Sr","Ba","Ra",
+      "Sc","Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn",
+      "Y","Zr","Nb","Mo","Tc","Ru","Rh","Pd","Ag","Cd",
+      "Hf","Ta","W","Re","Os","Ir","Pt","Au","Hg",
+      "Al","Ga","In","Tl","Sn","Pb","Bi"
+    ];
+
+    // Common compounds with names & type (teaching list)
+    const compoundData = {
+      "NaCl":   { name: "Sodium chloride",          type: "ionic"     },
+      "KBr":    { name: "Potassium bromide",        type: "ionic"     },
+      "MgO":    { name: "Magnesium oxide",          type: "ionic"     },
+      "CaCl2":  { name: "Calcium chloride",         type: "ionic"     },
+      "Al2O3":  { name: "Aluminium oxide",          type: "ionic"     },
+      "LiF":    { name: "Lithium fluoride",         type: "ionic"     },
+      "NH4NO3": { name: "Ammonium nitrate",         type: "ionic"     },
+      "Na2SO4": { name: "Sodium sulphate",          type: "ionic"     },
+      "BaCO3":  { name: "Barium carbonate",         type: "ionic"     },
+      "FeCl3":  { name: "Iron(III) chloride",       type: "ionic"     },
+
+      "CO2":    { name: "Carbon dioxide",           type: "molecular" },
+      "H2O":    { name: "Water",                    type: "molecular" },
+      "NH3":    { name: "Ammonia",                  type: "molecular" },
+      "CH4":    { name: "Methane",                  type: "molecular" },
+      "SO2":    { name: "Sulfur dioxide",           type: "molecular" },
+      "N2O4":   { name: "Dinitrogen tetroxide",     type: "molecular" },
+      "CCl4":   { name: "Carbon tetrachloride",     type: "molecular" },
+      "NO2":    { name: "Nitrogen dioxide",         type: "molecular" },
+      "PCl5":   { name: "Phosphorus pentachloride", type: "molecular" },
+      "OF2":    { name: "Oxygen difluoride",        type: "molecular" }
+    };
+
+    function classifyCompound(rawFormula) {
+      const cleaned = normalizeFormula(rawFormula);
+
+      if (!cleaned) {
+        return {
+          formula: "",
+          type: "",
+          explanation: "Please enter a chemical formula.",
+          name: ""
+        };
+      }
+
+      // Check if compound is in the common list
+      const info = compoundData[cleaned] || null;
+
+      // Handle ammonium compounds starting with NH4
+      if (cleaned.startsWith("NH4")) {
+        return {
+          formula: cleaned,
+          type: "ionic",
+          name: info ? info.name : "",
+          explanation:
+            cleaned +
+            " starts with NH₄ (ammonium), a polyatomic cation. " +
+            "Compounds containing NH₄⁺ with an anion are classified as ionic."
+        };
+      }
+
+      // Match the first element symbol: capital letter + optional lowercase letter
+      const firstMatch = cleaned.match(/^[A-Z][a-z]?/);
+      if (!firstMatch) {
+        return {
+          formula: cleaned,
+          type: "",
+          name: info ? info.name : "",
+          explanation: "Could not identify the first element in the formula."
+        };
+      }
+
+      const firstElement = firstMatch[0];
+      let predictedType, explanation;
+
+      if (metals.includes(firstElement)) {
+        predictedType = "ionic";
+        explanation =
+          "The first element is " + firstElement +
+          ", which is a metal. A metal combined with a non-metal or polyatomic ion " +
+          "is usually classified as an ionic compound.";
+      } else {
+        predictedType = "molecular";
+        explanation =
+          "The first element is " + firstElement +
+          ", which is a non-metal. Non-metal + non-metal is usually classified " +
+          "as a molecular (covalent) compound.";
+      }
+
+      // If the compound is in the teaching list, we keep the name from there
+      return {
+        formula: cleaned,
+        type: predictedType,
+        name: info ? info.name : "",
+        explanation: explanation
+      };
+    }
+
+    const formulaInput = document.getElementById("formula");
+    const classifyBtn = document.getElementById("classifyBtn");
+    const resultDiv = document.getElementById("result");
+    const resultFormulaDiv = document.getElementById("resultFormula");
+    const resultNameDiv = document.getElementById("resultName");
+    const resultTypeDiv = document.getElementById("resultType");
+    const resultExplanationP = document.getElementById("resultExplanation");
+
+    classifyBtn.addEventListener("click", () => {
+      const formula = formulaInput.value;
+      const result = classifyCompound(formula);
+
+      if (!result.formula) {
+        resultFormulaDiv.textContent = "";
+        resultNameDiv.textContent = "";
+        resultTypeDiv.innerHTML = "";
+        resultExplanationP.textContent = result.explanation;
+        resultDiv.style.display = "block";
+        return;
+      }
+
+      resultFormulaDiv.innerHTML =
+        "Formula: <strong>" + result.formula + "</strong>";
+
+      // Name (if known)
+      if (result.name) {
+        resultNameDiv.innerHTML =
+          'Name: <span class="name-pill">' + result.name + "</span>";
+      } else {
+        resultNameDiv.innerHTML =
+          '<span style="font-size:0.85rem; color:#555;">Name not in quick list (teaching set).</span>';
+      }
+
+      // Type (ionic / molecular)
+      if (!result.type) {
+        resultTypeDiv.innerHTML = "";
+      } else {
+        const typeText = result.type.toUpperCase();
+        const typeClass = result.type === "ionic" ? "type-ionic" : "type-molecular";
+        resultTypeDiv.innerHTML =
+          'Predicted type: ' +
+          '<span class="result-type ' + typeClass + '">' + typeText + '</span>';
+      }
+
+      resultExplanationP.textContent = result.explanation;
+      resultDiv.style.display = "block";
+    });
+
+    // Allow pressing Enter in the input
+    formulaInput.addEventListener("keyup", (e) => {
+      if (e.key === "Enter") {
+        classifyBtn.click();
+      }
+    });
+
+    // Example chips click
+    document.querySelectorAll(".examples span").forEach(span => {
+      span.addEventListener("click", () => {
+        formulaInput.value = span.getAttribute("data-example");
+        classifyBtn.click();
+        formulaInput.focus();
+      });
+    });
+
+    // Fill common compounds table
+    const table = document.getElementById("commonTable");
+    Object.keys(compoundData).forEach(key => {
+      const row = document.createElement("tr");
+      const c = compoundData[key];
+      const typeClass = c.type === "ionic" ? "tag-ionic" : "tag-molecular";
+
+      row.innerHTML = `
+        <td>${key}</td>
+        <td>${c.name}</td>
+        <td><span class="${typeClass}">${c.type.charAt(0).toUpperCase() + c.type.slice(1)}</span></td>
+      `;
+      table.appendChild(row);
+    });
+
+    // Footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
