@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MZJ Chemical Tools Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --mzj-purple: #4b2e83;
+      --mzj-purple-dark: #2c1c57;
+      --mzj-gold: #f4b41a;
+      --bg-light: #f5f7fb;
+      --card-bg: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--bg-light);
+      color: #222;
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--mzj-purple), var(--mzj-purple-dark));
+      color: white;
+      padding: 1.5rem 1rem;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .logo-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid var(--mzj-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      background: rgba(255,255,255,0.1);
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+
+    header p {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-top: 0.2rem;
+    }
+
+    .tagline {
+      font-size: 0.9rem;
+      max-width: 300px;
+      text-align: right;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 1.8rem auto 2.2rem;
+      padding: 0 1rem;
+    }
+
+    .intro-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 1.3rem 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      margin-bottom: 1.8rem;
+    }
+
+    .intro-card h2 {
+      font-size: 1.3rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .intro-card p {
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .chip-row {
+      margin-top: 0.7rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      font-size: 0.8rem;
+    }
+
+    .chip {
+      padding: 0.22rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid #ddd;
+      background: #fafafa;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin: 1.2rem 0 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .section-title span.icon {
+      font-size: 1.1rem;
+    }
+
+    .section-sub {
+      font-size: 0.85rem;
+      color: #555;
+      margin-bottom: 0.7rem;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .tool-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 1rem 1.1rem 1.05rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid #eee;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+      cursor: pointer;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      border-color: #ddd;
+    }
+
+    .tool-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .tool-main {
+      flex: 1;
+    }
+
+    .tool-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--mzj-purple);
+      font-weight: bold;
+      margin-bottom: 0.15rem;
+    }
+
+    .tool-card h3 {
+      font-size: 1.02rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .tool-card p {
+      font-size: 0.88rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .tool-meta {
+      font-size: 0.78rem;
+      color: #666;
+      margin-bottom: 0.6rem;
+    }
+
+    .tool-icon {
+      font-size: 1.3rem;
+      opacity: 0.8;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid #e0e0e0;
+      background: #fafafa;
+    }
+
+    .pill-primary {
+      border-color: var(--mzj-purple);
+      color: var(--mzj-purple);
+      background: #f1edff;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      border: none;
+      font-size: 0.88rem;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: var(--mzj-purple);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid #ccc;
+      color: #333;
+    }
+
+    .btn-ghost[disabled] {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.1rem;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      padding: 1.6rem 1rem 2rem;
+      color: #777;
+    }
+
+    @media (max-width: 600px) {
+      .tagline {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <div class="logo-circle">MZJ</div>
+        <div>
+          <h1>MZJ Chemical Tools Portal</h1>
+          <p>Interactive web tools for chemistry learning and workshops.</p>
+        </div>
+      </div>
+      <div class="tagline">
+        UiTM • Chemometrics • Digital Chemistry Education
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro-card">
+      <h2>Welcome to your chemistry tools hub 🔬</h2>
+      <p>
+        This page collects small, focused web apps for students and participants
+        in Dr. Mohd Zuli Jaafar’s chemistry classes, workshops, and STEM programmes.
+      </p>
+      <p>
+        Click any card below to open a tool in the same site (similar idea to WebQC,
+        but with MZJ styling).
+      </p>
+
+      <div class="chip-row">
+        <span class="chip">Classification tools</span>
+        <span class="chip">Solution & stoichiometry calculators</span>
+        <span class="chip">Nomenclature practice</span>
+        <span class="chip">Chemometrics (coming soon)</span>
+      </div>
+    </section>
+
+    <!-- SECTION 1: CLASSIFICATIONS & IDENTIFICATION -->
+    <section>
+      <div class="section-title">
+        <span class="icon">⚖️</span>
+        <span>Classifications & Identification</span>
+      </div>
+      <div class="section-sub">
+        Decide if a compound is ionic or molecular, and later extend to acid–base,
+        electrolytes, and more.
+      </div>
+
+      <div class="tool-grid">
+        <!-- TOOL: Ionic vs Molecular -->
+        <a href="ionic-molecular.html" class="tool-card">
+          <div class="tool-header">
+            <div class="tool-main">
+              <div class="tool-label">Tool 1</div>
+              <h3>Ionic vs Molecular + Names</h3>
+              <p>
+                Enter a chemical formula (e.g. NaCl, CO₂, NH₄NO₃) and see whether it is
+                predicted to be ionic or molecular, plus the common name for selected
+                compounds.
+              </p>
+              <div class="tool-meta">
+                Uses: first element (metal/non-metal), ammonium ion, and a teaching list
+                of common compounds.
+              </div>
+            </div>
+            <div class="tool-icon">🧪</div>
+          </div>
+          <div class="pill-row">
+            <span class="pill pill-primary">Classification</span>
+            <span class="pill">Ionic vs molecular</span>
+            <span class="pill">Names</span>
+          </div>
+          <div class="btn-row">
+            <span class="btn btn-primary">Open tool</span>
+          </div>
+        </a>
+
+        <!-- Placeholder: Acid–Base Predictor -->
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-main">
+              <div class="tool-label">Planned</div>
+              <h3>Acid–Base Reaction Predictor</h3>
+              <p>
+                Future tool: classify reactants as acid/base and predict simple
+                neutralisation products.
+              </p>
+              <div class="tool-meta">
+                Status: placeholder – link can be activated when page is created
+                (e.g. <code>acid-base.html</code>).
+              </div>
+            </div>
+            <div class="tool-icon">⚗️</div>
+          </div>
+          <div class="pill-row">
+            <span class="pill">Acid–base</span>
+            <span class="pill">Neutralisation</span>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-ghost" disabled>Coming soon</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: SOLUTION & MOLARITY CALCULATORS -->
+    <section>
+      <div class="section-title">
+        <span class="icon">🧴</span>
+        <span>Solution & Molarity Calculators</span>
+      </div>
+      <div class="section-sub">
+        Mass, volume, molarity, and dilution tools for basic lab calculations.
+      </div>
+
+      <div class="tool-grid">
+        <!-- Placeholder: Molarity Calculator -->
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-main">
+              <div class="tool-label">Planned</div>
+              <h3>Molarity Calculator</h3>
+              <p>
+                Calculate molarity from mass of solute and volume of solution,
+                with unit handling (g, L, mL).
+              </p>
+              <div class="tool-meta">
+                Suggested file name: <code>molarity.html</code>.
+              </div>
+            </div>
+            <div class="tool-icon">📏</div>
+          </div>
+          <div class="pill-row">
+            <span class="pill pill-primary">Solutions</span>
+            <span class="pill">Molarity</span>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-ghost" disabled>Coming soon</button>
+          </div>
+        </div>
+
+        <!-- Placeholder: Dilution Calculator -->
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-main">
+              <div class="tool-label">Planned</div>
+              <h3>Dilution (C₁V₁ = C₂V₂)</h3>
+              <p>
+                Plan dilutions from stock solutions using the C₁V₁ = C₂V₂ relationship.
+              </p>
+              <div class="tool-meta">
+                Suggested file name: <code>dilution.html</code>.
+              </div>
+            </div>
+            <div class="tool-icon">💧</div>
+          </div>
+          <div class="pill-row">
+            <span class="pill">Dilution</span>
+            <span class="pill">C₁V₁–C₂V₂</span>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-ghost" disabled>Coming soon</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: STOICHIOMETRY & REACTION TOOLS -->
+    <section>
+      <div class="section-title">
+        <span class="icon">⚙️</span>
+        <span>Stoichiometry & Reaction Tools</span>
+      </div>
+      <div class="section-sub">
+        For mass–mass, limiting reagent, and equation-based calculations.
+      </div>
+
+      <div class="tool-grid">
+        <!-- Placeholder: Stoichiometry -->
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-main">
+              <div class="tool-label">Planned</div>
+              <h3>Stoichiometry Calculator</h3>
+              <p>
+                Use balanced equations to convert between mass, moles, and volume
+                of reactants and products.
+              </p>
+              <div class="tool-meta">
+                Suggested file name: <code>stoichiometry.html</code>.
+              </div>
+            </div>
+            <div class="tool-icon">⚙️</div>
+          </div>
+          <div class="pill-row">
+            <span class="pill pill-primary">Stoichiometry</span>
+            <span class="pill">Mass–mass</span>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-ghost" disabled>Coming soon</button>
+          </div>
+        </div>
+
+        <!-- Placeholder: Limiting Reagent -->
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-main">
+              <div class="tool-label">Planned</div>
+              <h3>Limiting Reagent Tool</h3>
+              <p>
+                Determine limiting reagent and theoretical yield from given masses
+                of reactants.
+              </p>
+              <div class="tool-meta">
+                Suggested file name: <code>limiting-reagent.html</code>.
+              </div>
+            </div>
+            <div class="tool-icon">📊</div>
+          </div>
+          <div class="pill-row">
+            <span class="pill">Limiting reagent</span>
+            <span class="pill">Yield</span>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-ghost" disabled>Coming soon</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: NOMENCLATURE PRACTICE -->
+    <section>
+      <div class="section-title">
+        <span class="icon">📚</span>
+        <span>Nomenclature Practice</span>
+      </div>
+      <div class="section-sub">
+        Name → formula and formula → name exercises for ionic and molecular compounds.
+      </div>
+
+      <div class="tool-grid">
+        <!-- Placeholder: Ionic naming -->
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-main">
+              <div class="tool-label">Planned</div>
+              <h3>Ionic Compound Naming Practice</h3>
+              <p>
+                Generate random ionic formulas for students to name, with instant
+                feedback and answer checking.
+              </p>
+              <div class="tool-meta">
+                Suggested file name: <code>naming-ionic.html</code>.
+              </div>
+            </div>
+            <div class="tool-icon">🧱</div>
+          </div>
+          <div class="pill-row">
+            <span class="pill pill-primary">Nomenclature</span>
+            <span class="pill">Ionic</span>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-ghost" disabled>Coming soon</button>
+          </div>
+        </div>
+
+        <!-- Placeholder: Molecular naming -->
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-main">
+              <div class="tool-label">Planned</div>
+              <h3>Molecular Compound Naming Practice</h3>
+              <p>
+                Practice Greek prefixes (mono-, di-, tri-, etc.) with formula–name
+                conversions.
+              </p>
+              <div class="tool-meta">
+                Suggested file name: <code>naming-molecular.html</code>.
+              </div>
+            </div>
+            <div class="tool-icon">🧬</div>
+          </div>
+          <div class="pill-row">
+            <span class="pill">Nomenclature</span>
+            <span class="pill">Molecular</span>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-ghost" disabled>Coming soon</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: SPECTROSCOPY & CHEMOMETRICS -->
+    <section>
+      <div class="section-title">
+        <span class="icon">📈</span>
+        <span>Spectroscopy & Chemometrics (future)</span>
+      </div>
+      <div class="section-sub">
+        For later expansion into PCA visualisation, classification, and spectral tools.
+      </div>
+
+      <div class="tool-grid">
+        <!-- Placeholder: PCA visualiser -->
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-main">
+              <div class="tool-label">Future</div>
+              <h3>PCA Visualiser (Chemometrics)</h3>
+              <p>
+                Upload data and view PCA score plots, loadings, and class separation
+                for teaching chemometrics.
+              </p>
+              <div class="tool-meta">
+                Could be built later with Octave/MATLAB backend or pure JS example.
+              </div>
+            </div>
+            <div class="tool-icon">📉</div>
+          </div>
+          <div class="pill-row">
+            <span class="pill pill-primary">Chemometrics</span>
+            <span class="pill">PCA</span>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-ghost" disabled>Future idea</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    © <span id="year"></span> MZJ Chemistry – Tools for teaching & learning.
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
